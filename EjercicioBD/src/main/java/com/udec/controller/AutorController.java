@@ -110,9 +110,9 @@ public class AutorController {
 	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutores/{page}/{size}")
-	public ResponseEntity<Page<Object[]>> listarVistaAutores(@PathVariable int page, @PathVariable int size){
-		Page<Object[]> autors = service.listarVistaAutores(page, size);
-		return new ResponseEntity<Page<Object[]>>(autors, HttpStatus.OK);
+	public ResponseEntity<Page<AutorView>> listarVistaAutores(@PathVariable int page, @PathVariable int size){
+		Page<AutorView> autors = service.listarVistaAutores(page, size);
+		return new ResponseEntity<Page<AutorView>>(autors, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)

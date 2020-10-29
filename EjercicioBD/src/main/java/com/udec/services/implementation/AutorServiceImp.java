@@ -139,10 +139,10 @@ public class AutorServiceImp implements IAutorService {
 
 
 	@Override
-	public Page<Object[]> listarVistaAutores(int page, int size) {
-		Page<Object[]> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
+	public Page<AutorView> listarVistaAutores(int page, int size) {
+		Page<AutorView> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
 		System.out.println(listadoautores);
-		return null;
+		return listadoautores;
 	}
 
 

@@ -17,7 +17,7 @@ public abstract interface IAutorService extends ICrudService<Autor,Integer>{
 	public Page<Autor> listarPaginado(Boolean lazy, Integer page, Integer size);	
 	public Autor consultar(Boolean lazy, Integer id);	
 	public void editarDireccion(Direccion direccion);
-	public Page<Object[]> listarVistaAutores (int page, int size);
+	public Page<AutorView> listarVistaAutores (int page, int size);
 	public AutorView listarVistaAutor (Integer id);
 }
 
