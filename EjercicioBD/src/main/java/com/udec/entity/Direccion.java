@@ -21,7 +21,6 @@ public class Direccion {
 	@Column(name = "id")
 	private Integer id;
 	
-	
 	@NotNull
 	@Size(min = 3,max = 50, message = "La descripcion del autor debe contener entre 7 y 50 car�cteres")	
 	@Column(name = "descripcion", nullable = false, length = 50)
