@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "autor")
 public class Autor {
+	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
