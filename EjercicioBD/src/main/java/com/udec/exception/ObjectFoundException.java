@@ -12,7 +12,6 @@ public class ObjectFoundException extends RuntimeException {
 		super(message);
 	}	
 	
-	
 
 }
 

@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class PersonaDto implements Serializable {
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@NotNull(message="El id es requerido.")

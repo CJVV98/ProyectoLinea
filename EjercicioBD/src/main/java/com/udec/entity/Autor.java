@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -25,10 +26,10 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @Entity
 @Table(name = "autor")
 public class Autor {
-	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -58,10 +59,11 @@ public class Autor {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fechaNacimiento;
 	
+
 	@OneToMany(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Libro> libros;
-
-
+	
+	@Valid
 	@NotNull(message="La direccion es requerida")
 	@OneToOne(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Direccion direccion;

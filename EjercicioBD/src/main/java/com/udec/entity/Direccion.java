@@ -16,18 +16,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "direccion")
 public class Direccion {
-
+	
 	@Id
 	@Column(name = "id")
 	private Integer id;
 	
-	@NotNull
-	@Size(min = 3,max = 50, message = "La descripcion del autor debe contener entre 7 y 50 car�cteres")	
+	
+	@NotNull(message = "La descripcion de la direccion del autor no puede ser vacia.")
+	@Size(min = 7,max = 50, message = "La descripcion de la direccion del autor debe contener entre 7 y 50 caracteres")	
 	@Column(name = "descripcion", nullable = false, length = 50)
 	private String descripcion;
 	
-	@NotNull
-	@Size(min = 3,max = 50, message = "La direccion del autor debe contener entre 7 y 50 car�cteres")	
+	@NotNull(message = "El barrio del autor no puede ser vacia.")
+	@Size(min = 7,max = 50, message = "El barrio del autor debe contener entre 7 y 50 caracteres")	
 	@Column(name = "barrio", nullable = false, length = 50)
 	private String barrio;
 
@@ -91,6 +92,8 @@ public class Direccion {
 		this.barrio = barrio;
 	}
 
+
+	
 	
 	
 }

@@ -4,26 +4,36 @@ package com.udec.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import com.udec.entity.Autor;
+import com.udec.entity.AutorView;
+import com.udec.entity.Direccion;
 import com.udec.entity.Libro;
 import com.udec.exception.ArgumentRequiredException;
 import com.udec.exception.BussinesLogicException;
 import com.udec.exception.ModelNotFoundException;
 import com.udec.repository.IAutorRepo;
+import com.udec.repository.IAutorViewRepo;
+import com.udec.repository.IDireccionRepo;
 import com.udec.services.interfaces.IAutorService;
-
 
 
 
 @Service("Autor")
 public class AutorServiceImp implements IAutorService {
-
 	@Autowired
 	IAutorRepo repo;
-
 	
+	@Autowired
+	IDireccionRepo repoDireccion;
+	
+	@Autowired
+	IAutorViewRepo repovista;
+
+
 	@Override
 	public void insertar(Autor objeto) {
 		Integer contador  =repo.validarExistencia(objeto.getCedula());
@@ -112,6 +122,38 @@ public class AutorServiceImp implements IAutorService {
 		autoreditado.getDireccion().setBarrio(autor.getDireccion().getBarrio());
 		repo.save(autoreditado);
 		
+	}
+
+
+	@Override
+	public void editarDireccion(Direccion direccion) {
+		if(direccion.getId() == null) {
+			throw new ArgumentRequiredException("El id del autor debe ser obligatorio");
+		}
+		if(repoDireccion.existsById(direccion.getId()))
+			repoDireccion.modificarDireccion(direccion.getBarrio(), direccion.getDescripcion(), direccion.getId());
+		else
+			throw new ModelNotFoundException("La direccion no existe");
+		
+	}
+
+
+	@Override
+	public Page<Object[]> listarVistaAutores(int page, int size) {
+		Page<Object[]> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
+		System.out.println(listadoautores);
+		return null;
+	}
+
+
+	@Override
+	public AutorView listarVistaAutor(Integer id) {
+		AutorView autorVista = repovista.listarVistaAutor(id);
+		if(autorVista == null) {
+			throw new ModelNotFoundException("Autor no encontrado.");
+		}
+		
+		return autorVista;
 	}
 
 

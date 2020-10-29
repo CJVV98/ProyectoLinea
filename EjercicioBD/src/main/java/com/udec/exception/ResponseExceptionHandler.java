@@ -30,6 +30,7 @@ import javax.validation.ConstraintViolationException;
 @RestController
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
+
 	
 	// EXCEPCIONES PERSONALIZADAS
 	@ExceptionHandler(value = { ModelNotFoundException.class })
