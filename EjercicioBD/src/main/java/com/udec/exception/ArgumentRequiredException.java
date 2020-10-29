@@ -11,5 +11,6 @@ public class ArgumentRequiredException extends RuntimeException{
 		super(message);
 	}
 	
+	
 }
 

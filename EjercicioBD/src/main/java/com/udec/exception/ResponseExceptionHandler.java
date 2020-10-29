@@ -31,7 +31,6 @@ import javax.validation.ConstraintViolationException;
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
 	
-	
 	// EXCEPCIONES PERSONALIZADAS
 	@ExceptionHandler(value = { ModelNotFoundException.class })
 	public final ResponseEntity<ErrorDto> filtroModelNotFoundException(Exception ex, WebRequest request) {

@@ -92,8 +92,6 @@ public class Direccion {
 		this.barrio = barrio;
 	}
 
-
-	
 	
 	
 }

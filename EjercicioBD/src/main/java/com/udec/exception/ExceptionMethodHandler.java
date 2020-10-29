@@ -23,7 +23,6 @@ import com.udec.dto.ErrorDto;
 @RestController
 public class ExceptionMethodHandler {
 	
-
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public final ResponseEntity<ErrorDto> filtroMethodArgumentTypeMismatchException(Exception ex, WebRequest request) {
 		HttpStatus status=HttpStatus.METHOD_NOT_ALLOWED;

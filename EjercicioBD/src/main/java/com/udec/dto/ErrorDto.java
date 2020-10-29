@@ -57,6 +57,7 @@ public class ErrorDto {
 	public void setMessage(Object message) {
 		this.message = message;
 	}
+	
 
 	public String getPath() {
 		return path;
