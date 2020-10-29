@@ -122,7 +122,6 @@ public class AutorController {
 		return new ResponseEntity<AutorView>(autors, HttpStatus.OK);
 	}
 	
-	
 }
 	
 
