@@ -16,6 +16,7 @@ import com.udec.services.interfaces.IAutorService;
 
 
 
+
 @Service("Autor")
 public class AutorServiceImp implements IAutorService {
 
@@ -27,7 +28,7 @@ public class AutorServiceImp implements IAutorService {
 	public void insertar(Autor objeto) {
 		Integer contador  =repo.validarExistencia(objeto.getCedula());
 		if(contador > 0)
-			throw new BussinesLogicException("Ya existe un Autor con esta cédula");	
+			throw new BussinesLogicException("Ya existe un Autor con esta cï¿½dula");	
 		if(objeto.getLibros() != null) {
 			for(Libro libro: objeto.getLibros()) {
 				libro.setAutor(objeto);
