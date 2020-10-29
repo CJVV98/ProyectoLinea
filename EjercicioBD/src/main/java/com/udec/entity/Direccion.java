@@ -17,19 +17,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "direccion")
 public class Direccion {
 
-	
 	@Id
 	@Column(name = "id")
 	private Integer id;
 	
 	
 	@NotNull
-	@Size(min = 3,max = 50, message = "La descripcion del autor debe contener entre 7 y 50 carácteres")	
+	@Size(min = 3,max = 50, message = "La descripcion del autor debe contener entre 7 y 50 carï¿½cteres")	
 	@Column(name = "descripcion", nullable = false, length = 50)
 	private String descripcion;
 	
 	@NotNull
-	@Size(min = 3,max = 50, message = "La direccion del autor debe contener entre 7 y 50 carácteres")	
+	@Size(min = 3,max = 50, message = "La direccion del autor debe contener entre 7 y 50 carï¿½cteres")	
 	@Column(name = "barrio", nullable = false, length = 50)
 	private String barrio;
 
@@ -45,8 +44,8 @@ public class Direccion {
 	}
 
 	public Direccion(Integer id,
-			@NotNull @Size(min = 3, max = 50, message = "La cédula del autor debe contener entre 7 y 50 carácteres") String descripcion,
-			@NotNull @Size(min = 3, max = 50, message = "La cédula del autor debe contener entre 7 y 50 carácteres") String barrio,
+			@NotNull @Size(min = 3, max = 50, message = "La cï¿½dula del autor debe contener entre 7 y 50 carï¿½cteres") String descripcion,
+			@NotNull @Size(min = 3, max = 50, message = "La cï¿½dula del autor debe contener entre 7 y 50 carï¿½cteres") String barrio,
 			Autor autor) {
 		super();
 		this.id = id;

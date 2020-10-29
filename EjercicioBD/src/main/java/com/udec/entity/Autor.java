@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 @Entity
 @Table(name = "autor")
 public class Autor {
@@ -36,7 +35,7 @@ public class Autor {
 	private Integer id;	
 	
 	@NotNull(message = "La cedula no puede ser vacia")
-	@Size(min = 7,max = 11, message = "La cédula del autor debe contener entre 7 y 11 carácteres")	
+	@Size(min = 7,max = 11, message = "La cï¿½dula del autor debe contener entre 7 y 11 carï¿½cteres")	
 	@Column(name = "cedula", nullable = false, length = 11)
 	private String cedula;	
 	
@@ -71,7 +70,7 @@ public class Autor {
 	
 
 	public Autor(Integer id,
-			@NotNull @Size(min = 7, max = 11, message = "La cédula del autor debe contener entre 7 y 11 carácteres") String cedula,
+			@NotNull @Size(min = 7, max = 11, message = "La cï¿½dula del autor debe contener entre 7 y 11 carï¿½cteres") String cedula,
 			@NotNull(message = "El nombre del autor es requerido.") @Pattern(regexp = "[a-zA-Z]*", message = "El nombre del autor solo debe contener letras.") @Size(min = 3, max = 30, message = "El nombre del autor debe ser mayor de 3 letras y no debe exceder 30.") String nombre,
 			@NotNull(message = "El apellido del autor es requerido.") @Pattern(regexp = "[a-zA-Z]*", message = "El apellido del autor solo debe contener letras.") @Size(min = 3, max = 30, message = "El apellido del autor debe ser mayor de 3 letras y no debe exceder 30.") String apellido,
 			@NotNull(message = "La fecha de nacimiento del autor es requerida.") @Past(message = "La fecha de nacimiento del autor debe ser menor a la fecha actual") LocalDate fechaNacimiento,
