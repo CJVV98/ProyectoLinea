@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udec.entity.Autor;
+import com.udec.entity.Autorcito;
 import com.udec.entity.Direccion;
 import com.udec.services.interfaces.IAutorService;
 import com.udec.services.interfaces.IDireccionService;
@@ -38,6 +39,7 @@ public class DireccionController {
 	@PutMapping("/editar")
 	public ResponseEntity<Object> editar(@Valid @RequestBody Direccion direccion){
 		service.editar(direccion);
+		Autorcito autor=new Autorcito();
 		return new ResponseEntity<Object>( HttpStatus.OK);
 	}
 	

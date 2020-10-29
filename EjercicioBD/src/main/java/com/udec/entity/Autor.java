@@ -61,7 +61,8 @@ public class Autor {
 
 	@OneToMany(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Libro> libros;
-	
+
+
 	@NotNull(message="La direccion es requerida")
 	@OneToOne(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Direccion direccion;
