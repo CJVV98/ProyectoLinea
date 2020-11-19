@@ -21,11 +21,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+
+@PreAuthorize("hasAuthority('administrador')")
 @Validated
 @RestController
 @Api(description = "Todos los servicios transaccionales que se pueden realizar sobre una persona.",tags = "Servicios rest   ")
@@ -38,7 +41,7 @@ public class PersonaController {
 	IPersonaService service;
 
 	
-	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar personas", notes = "El metodo que lista a las personas.",response = List.class)
 	@GetMapping("/listar")
 	public ResponseEntity<List<Persona>> get(){
@@ -46,6 +49,7 @@ public class PersonaController {
 		return new ResponseEntity<List<Persona>>(personas, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar personas con paginado", notes = "El metodo que lista a las personas.",response = List.class)
 	@GetMapping("/listarPaginador/{page}/{size}")
 	public ResponseEntity<Page<Persona>> getPage(@PathVariable int page, @PathVariable int size){
@@ -53,7 +57,7 @@ public class PersonaController {
 		return new ResponseEntity<Page<Persona>>(personas, HttpStatus.OK);
 	}
 	
-	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Consultar persona", notes = "El metodo que consulta una persona por su cedula.",response = PersonaDto.class)
 	@GetMapping("/consultar/{id}")
 	public ResponseEntity<Persona> getId(@Valid @NonNull @PathVariable Integer id){
@@ -89,6 +93,7 @@ public class PersonaController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Consultar persona", notes = "El metodo que consulta una persona por su cedula.",response = PersonaDto.class)
 	@GetMapping("/consultar_cedula/{cedula}")
 	public ResponseEntity<Persona> getCedula(@Valid @NonNull @PathVariable String cedula){

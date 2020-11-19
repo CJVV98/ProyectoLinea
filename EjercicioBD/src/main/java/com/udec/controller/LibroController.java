@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@PreAuthorize("hasAuthority('administrador')")
 @Validated
 @RestController
 @RequestMapping("/libros/")
@@ -35,6 +37,7 @@ public class LibroController {
 	@Autowired
 	ILibroService service;
 
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar libros", notes = "El metodo que consulta varios libros.",response = Libro.class)
 	@GetMapping("/listarPaginado/{pagina}/{tamanio}")
 	public  ResponseEntity<Page<Libro>> listadoPaginado( @PathVariable Integer pagina, @PathVariable Integer tamanio) {		
@@ -42,7 +45,7 @@ public class LibroController {
 		return new ResponseEntity<Page<Libro>>(listarLibro, HttpStatus.OK);
 	}
 	
-
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Consultar libro", notes = "El metodo que consulta un libro.",response = Libro.class)
 	@GetMapping("/consultar/{id}")
 	public ResponseEntity<Libro> consultarId(@Valid @NonNull @PathVariable Integer id){

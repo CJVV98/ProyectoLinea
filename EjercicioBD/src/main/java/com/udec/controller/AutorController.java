@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udec.dto.AutorDto;
+import com.udec.dto.AutorLectorDto;
 import com.udec.entity.Autor;
+import com.udec.entity.AutorLector;
 import com.udec.entity.AutorView;
 import com.udec.entity.Direccion;
 import com.udec.services.interfaces.IAutorService;
@@ -32,6 +35,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 
+
+@PreAuthorize("hashAuthority('administrador')")
 @Validated
 @RestController
 @Api(description = "Todos los servicios transaccionales que se pueden realizar sobre una Autor.",tags = "Servicios rest   ")
@@ -44,7 +49,7 @@ public class AutorController {
 	IAutorService service;
 	
 
-	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar Autors con paginado", notes = "El metodo que lista a los Autors.",response = List.class)
 	@GetMapping("/listarPaginador/{lazy}/{page}/{size}")
 	public ResponseEntity<Page<Autor>> obtenerPage(@PathVariable boolean lazy, @PathVariable int page, @PathVariable int size){
@@ -52,6 +57,7 @@ public class AutorController {
 		return new ResponseEntity<Page<Autor>>(autors, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Consultar Autor", notes = "El metodo que consulta un Autor por su cedula.",response = Autor.class)
 	@GetMapping("/consultar/{lazy}/{id}")
 	public ResponseEntity<Autor> consultarId(@Valid @NonNull @PathVariable boolean lazy, @NonNull @PathVariable Integer id){
@@ -59,7 +65,7 @@ public class AutorController {
 		return new ResponseEntity<Autor>(autors, HttpStatus.OK);
 	}
 	
-		
+	
 	@PostMapping("/crear")
 	@ApiOperation(value = "Crear Autor", notes = "El metodo que crea una nueva Autor.",response = Autor.class)
 	@ApiResponses(value={@ApiResponse(code = 201, message = "Objeto creado")})
@@ -101,6 +107,7 @@ public class AutorController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar Autores por nombre", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarLibrosNombre/{nombre}/{page}/{size}")
 	public ResponseEntity<Page<Autor>> listarLibrosUno(@PathVariable String nombre, @PathVariable int page, @PathVariable int size){
@@ -108,6 +115,7 @@ public class AutorController {
 		return new ResponseEntity<Page<Autor>>(autors, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutores/{page}/{size}")
 	public ResponseEntity<Page<AutorView>> listarVistaAutores(@PathVariable int page, @PathVariable int size){
@@ -115,12 +123,31 @@ public class AutorController {
 		return new ResponseEntity<Page<AutorView>>(autors, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutor/{id}")
 	public ResponseEntity<AutorView> listarVistaAutores(@PathVariable Integer id){
 		AutorView autors = service.listarVistaAutor(id);
 		return new ResponseEntity<AutorView>(autors, HttpStatus.OK);
 	}
+	
+	
+	@PostMapping("/guardarAutorLector")
+	@ApiOperation(value = "Crear Autor", notes = "El metodo que crea una nueva Autor.",response = Autor.class)
+	@ApiResponses(value={@ApiResponse(code = 201, message = "Objeto creado")})
+	public ResponseEntity<Object> guardarAutorLector(@Valid @RequestBody AutorLectorDto autorLector){
+		service.guardarLector(autorLector);
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
+	}
+	
+	@PreAuthorize("hasAuthority('invitado') or hasAuthority('administrador')")
+	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
+	@GetMapping("/listarlectores/{idAutor}/{page}/{size}")
+	public ResponseEntity<Page<AutorLector>> listarVistaAutores(@PathVariable int idAutor, @PathVariable int page, @PathVariable int size){
+		Page<AutorLector> autors = service.consultarLectores(idAutor, page, size);
+		return new ResponseEntity<Page<AutorLector>>(autors, HttpStatus.OK);
+	}
+	
 	
 }
 	

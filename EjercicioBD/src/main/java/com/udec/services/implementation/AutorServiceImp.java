@@ -1,20 +1,30 @@
 package com.udec.services.implementation;
 
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import com.udec.dto.AutorLectorDto;
 import com.udec.entity.Autor;
+import com.udec.entity.AutorLector;
 import com.udec.entity.AutorView;
 import com.udec.entity.Direccion;
+import com.udec.entity.Lector;
 import com.udec.entity.Libro;
 import com.udec.exception.ArgumentRequiredException;
 import com.udec.exception.BussinesLogicException;
 import com.udec.exception.ModelNotFoundException;
+import com.udec.repository.IAutorLectorRepo;
 import com.udec.repository.IAutorRepo;
 import com.udec.repository.IAutorViewRepo;
 import com.udec.repository.IDireccionRepo;
@@ -32,6 +42,9 @@ public class AutorServiceImp implements IAutorService {
 	
 	@Autowired
 	IAutorViewRepo repovista;
+	
+	@Autowired
+	IAutorLectorRepo repoAutorLector;
 
 
 	@Override
@@ -140,7 +153,7 @@ public class AutorServiceImp implements IAutorService {
 
 	@Override
 	public Page<AutorView> listarVistaAutores(int page, int size) {
-		Page<AutorView> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
+		Page<AutorView> listadoautores = repovista.findAll(PageRequest.of(page, size));
 		System.out.println(listadoautores);
 		return listadoautores;
 	}
@@ -148,13 +161,37 @@ public class AutorServiceImp implements IAutorService {
 
 	@Override
 	public AutorView listarVistaAutor(Integer id) {
-		AutorView autorVista = repovista.listarVistaAutor(id);
+		AutorView autorVista =  repovista.findById(id).get();
 		if(autorVista == null) {
 			throw new ModelNotFoundException("Autor no encontrado.");
 		}
 		
 		return autorVista;
 	}
+
+
+	@Override
+	public void guardarLector(AutorLectorDto autLector) {
+		repoAutorLector.guardar(autLector.getAutor().getId(), autLector.getLector().getId(), autLector.getInfoAdicional());
+	}
+
+
+	@Override
+	public Page<AutorLector> consultarLectores(Integer idAutor, int page, int size) {
+		Page<AutorLector> listadoautores = repoAutorLector.listarLectoresAutor(idAutor, PageRequest.of(page, size));
+		return listadoautores;
+	}
+
+    @Transactional
+	@Override
+	public void guardarAutorLector(List<AutorLectorDto> autorLector) {
+		for(AutorLectorDto obj: autorLector) {
+			repoAutorLector.guardar(obj.getAutor().getId(), obj.getLector().getId(), obj.getInfoAdicional());
+		}
+		
+	}
+	
+	
 
 
 }

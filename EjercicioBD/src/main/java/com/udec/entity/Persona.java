@@ -75,6 +75,10 @@ public class Persona {
 	
 	
 
+	public Persona() {
+		super();
+	}
+
 	public Persona(Integer id,
 			@Size(min = 5, max = 8, message = "La cedula debe ser mayor de 10000 y no debe exceder 19999999.") @NotNull(message = "El numero de cedula es obligatorio.") String numCedula,
 			@NotNull(message = "El nombre es requerido.") @Size(min = 5, max = 30, message = "El nombre debe ser mayor de 5 letras y no debe exceder 30.") @Pattern(regexp = "[a-zA-Z]*", message = "El nombre solo debe contener letras.") String nombre,
