@@ -100,7 +100,7 @@ public class AutorController {
 	}
 	
 	@ApiOperation(value = "Eliminar Autor con datos libro", notes = "El metodo que elimina un Autor por su cedula.")
-	@ApiResponses(value={@ApiResponse(code = 204, message = "No hay contenido")})
+	@ApiResponses(value={@ApiResponse(code = 204, message = "No hay contenido ")})
 	@DeleteMapping("/eliminar_libros/{id}")
 	public ResponseEntity<Void> eliminarLibros(@Valid @NonNull @PathVariable Integer id){
 		service.eliminarLibros(id);
