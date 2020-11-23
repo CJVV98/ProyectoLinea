@@ -14,7 +14,7 @@ class EjercicioBdApplicationTests {
 	@Test
 	void contextLoads() {
 		System.out.println("Resultado de encriptacion..........");
-		System.out.println(bcrypt.encode("123456"));
+		System.out.println(bcrypt.encode("David981216"));
 	}
 
 

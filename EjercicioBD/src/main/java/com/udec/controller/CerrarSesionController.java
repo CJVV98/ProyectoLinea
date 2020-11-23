@@ -1,5 +1,6 @@
 package com.udec.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cerrarSesion/")
 public class CerrarSesionController {
 
+	@Autowired
 	private ConsumerTokenServices service;
 	
-	@GetMapping("/anular/{lazy}/{token:.*}")
+	@GetMapping("/anular/{token:.*}")
 	public void anularToken(@PathVariable("token") String token) {
 		service.revokeToken(token);
 	}
